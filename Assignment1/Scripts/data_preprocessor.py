@@ -40,8 +40,11 @@ def remove_duplicates(data):
     :param data: pandas DataFrame
     :return: pandas DataFrame
     """
-    # TODO: Remove duplicate rows
-    pass
+    for col in data.columns:
+    
+    # # TODO: Remove duplicate rows
+    # pass
+    
 
 # 3. Normalize Numerical Data
 def normalize_data(data,method='minmax'):
