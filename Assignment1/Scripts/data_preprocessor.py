@@ -14,24 +14,26 @@ def impute_missing_values(data, strategy='mean'):
     :param strategy: str, imputation method ('mean', 'median', 'mode')
     :return: pandas DataFrame
     """
-    # TODO: Fill missing values based on the specified strategy
+     # TODO: Fill missing values based on the specified strategy
+   
     #pass
-    for col in data.columns:
-        if data[col].dtype == 'object':
+    data_copy = data.copy()  # Avoid modifying the original DataFrame
+    for col in data_copy.columns:
+        if data_copy[col].dtype == 'object':
             # Fill categorical columns with mode
-            data[col].fillna(data[col].mode()[0], inplace=True)
+            data_copy[col]= data_copy[col].fillna(data_copy[col].mode()[0])
         else:
             # Fill numerical columns with mean or median
             if strategy == 'median':
-                data[col].fillna(data[col].median(), inplace=True)
+                data_copy[col] = data_copy[col].fillna(data_copy[col].median())
             elif strategy == 'mode':
-                data[col].fillna(data[col].mode()[0], inplace=True)
+                data_copy[col]= data_copy[col].fillna(data_copy[col].mode()[0])
             elif strategy == 'mean':
                 # Default to mean
-                data[col].fillna(data[col].mean(), inplace=True)
+                data_copy[col] = data_copy[col].fillna(data_copy[col].mean())
             else:
                 raise ValueError("Invalid strategy. Use 'mean', 'median', or 'mode'.")
-    return data
+    return data_copy
 
 # 2. Remove Duplicates
 def remove_duplicates(data):
@@ -40,9 +42,16 @@ def remove_duplicates(data):
     :param data: pandas DataFrame
     :return: pandas DataFrame
     """
-    for col in data.columns:
+    data_copy = data.copy()  # Avoid modifying the original DataFrame
+    for col in data_copy.columns: 
+        if data_copy[col].dtype == 'object':
+            # Convert categorical columns to string type
+            data_copy[col] = data_copy[col].astype(str)
+    # Remove duplicate rows
+    data_copy = data_copy.drop_duplicates()
+    return data_copy
     
-    # # TODO: Remove duplicate rows
+   
     # pass
     
 
@@ -52,8 +61,24 @@ def normalize_data(data,method='minmax'):
     :param data: pandas DataFrame
     :param method: str, normalization method ('minmax' (default) or 'standard')
     """
-    # TODO: Normalize numerical data using Min-Max or Standard scaling
-    pass
+     # TODO: Normalize numerical data using Min-Max or Standard scaling
+     
+    data_copy = data.copy()      # Avoid modifying the original DataFrame
+    numerical_cols = data_copy.select_dtypes(include=['number']).columns
+    
+    if method == 'minmax':
+        scaler = MinMaxScaler()
+    elif method == 'standard':
+        scaler = StandardScaler()
+    else:
+        raise ValueError("Invalid method. Use 'minmax' or 'standard'.")
+    #apply the scaler to the numerical columns
+    data_copy[numerical_cols]= scaler.fit_transform(data_copy[numerical_cols])
+    
+    return data_copy
+
+   
+    # pass
 
 # 4. Remove Redundant Features   
 def remove_redundant_features(data, threshold=0.9):
@@ -62,8 +87,28 @@ def remove_redundant_features(data, threshold=0.9):
     :param threshold: float, correlation threshold
     :return: pandas DataFrame
     """
-    # TODO: Remove redundant features based on the correlation threshold (HINT: you can use the corr() method)
-    pass
+     # TODO: Remove redundant features based on the correlation threshold (HINT: you can use the corr() method)
+    #(Google, 2025)
+    
+    data_copy = data.copy()  # Avoid modifying the original DataFrame
+    #select numerical columns
+    numerical_data = data_copy.select_dtypes(include=['number']) 
+    
+    # Calculate correlation matrix
+    corr_matrix = numerical_data.corr().abs()
+
+     # Identify highly correlated features
+    upper = corr_matrix.where(np.triu(np.ones(corr_matrix.shape), k=1).astype(bool))
+    to_drop = [column for column in upper.columns if any(upper[column] > threshold)]
+
+     # Remove highly correlated features
+    data_copy_filtered = data_copy.drop(to_drop, axis=1)
+    
+    return data_copy_filtered
+
+
+   
+    # pass
 
 # ---------------------------------------------------
 
@@ -93,8 +138,9 @@ def simple_model(input_data, split_data=True, scale_data=False, print_report=Fal
     input_data.dropna(inplace=True)
 
     # split the data into features and target
-    target = input_data.copy()[input_data.columns[0]]
-    features = input_data.copy()[input_data.columns[1:]]
+    target = input_data.copy()[input_data.columns[0]] # y = first column as the label (target variable)
+    
+    features = input_data.copy()[input_data.columns[1:]] #x = rest of the columns as input features
 
     # if the column is not numeric, encode it (one-hot)
     for col in features.columns:
