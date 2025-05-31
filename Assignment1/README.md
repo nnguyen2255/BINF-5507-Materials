@@ -10,3 +10,7 @@ Scripts/main.ipynb: A notebook to test preprocessing methods, apply it to
 messy_data.csv, and generate cleaned_data.csv.
 
 README.md: Brief documentation describing project and instructions for running code.
+_________________
+To run the code:
+1. Run the Scripts/data_preprocessor.py to initiate the function file
+2. Run the Scripts/main.ipynb to start the preprocessing, apply to your data and generate cleaned dataset.
