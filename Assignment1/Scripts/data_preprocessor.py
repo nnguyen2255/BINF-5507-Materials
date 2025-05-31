@@ -18,6 +18,9 @@ def impute_missing_values(data, strategy='mean'):
    
     #pass
     data_copy = data.copy()  # Avoid modifying the original DataFrame
+    missing_values_before = data_copy.isnull().sum().sum()  # Count total missing values (first sum(): columns, second sum(): dataframe total)
+    print("Before imputation, missing values in the dataset:" , missing_values_before) #check total missing values before
+    
     for col in data_copy.columns:
         if data_copy[col].dtype == 'object':
             # Fill categorical columns with mode
@@ -33,6 +36,8 @@ def impute_missing_values(data, strategy='mean'):
                 data_copy[col] = data_copy[col].fillna(data_copy[col].mean())
             else:
                 raise ValueError("Invalid strategy. Use 'mean', 'median', or 'mode'.")
+    missing_values_after = data_copy.isnull().sum().sum()  # Count total missing values after imputation
+    print("After imputation, missing values in the dataset:" , missing_values_after) #check total missing values after
     return data_copy
 
 # 2. Remove Duplicates
@@ -43,12 +48,20 @@ def remove_duplicates(data):
     :return: pandas DataFrame
     """
     data_copy = data.copy()  # Avoid modifying the original DataFrame
+    duplicate_values_before = data_copy.duplicated().sum()  # Count total duplicate rows before
+    print("Before removing duplicates, duplicate rows in the dataset:" , duplicate_values_before) #check total duplicate rows before
+    print("Before removing duplicates, number of rows and columns in the dataset:", data_copy.shape) #check shape of the dataset before removing duplicates
+   
     for col in data_copy.columns: 
         if data_copy[col].dtype == 'object':
             # Convert categorical columns to string type
             data_copy[col] = data_copy[col].astype(str)
+            
     # Remove duplicate rows
     data_copy = data_copy.drop_duplicates()
+    duplicate_values_after = data_copy.duplicated().sum()  # Count total duplicate rows after
+    print("After removing duplicates, duplicate rows in the dataset:" , duplicate_values_after) #check total duplicate rows after
+    print("After removing duplicates, number of rows and columns in the dataset:", data_copy.shape) #check shape of the dataset after removing duplicates
     return data_copy
     
    
@@ -91,6 +104,8 @@ def remove_redundant_features(data, threshold=0.9):
     #(Google, 2025)
     
     data_copy = data.copy()  # Avoid modifying the original DataFrame
+    print("Before removing redundant features:", data_copy.shape)
+    
     #select numerical columns
     numerical_data = data_copy.select_dtypes(include=['number']) 
     
@@ -103,6 +118,9 @@ def remove_redundant_features(data, threshold=0.9):
 
      # Remove highly correlated features
     data_copy_filtered = data_copy.drop(to_drop, axis=1)
+    
+    print("After removing redundant features:", data_copy_filtered.shape)
+    print("At threshold = ", threshold, "Removed repundant features:", to_drop)
     
     return data_copy_filtered
 
