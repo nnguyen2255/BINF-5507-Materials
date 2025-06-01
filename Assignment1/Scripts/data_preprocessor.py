@@ -24,7 +24,7 @@ def impute_missing_values(data, strategy='mean'):
     for col in data_copy.columns:
         if data_copy[col].dtype == 'object':
             # Fill categorical columns with mode
-            data_copy[col]= data_copy[col].fillna(data_copy[col].mode()[0])
+            data_copy[col]= data_copy[col].fillna(data_copy[col].mode()[0]) #(ChatGPT, 2025)-used for categorical columns code structure
         else:
             # Fill numerical columns with mean or median
             if strategy == 'median':
@@ -75,6 +75,7 @@ def normalize_data(data,method='minmax'):
     :param method: str, normalization method ('minmax' (default) or 'standard')
     """
      # TODO: Normalize numerical data using Min-Max or Standard scaling
+     #I used AI to help me understand the concepts and code structure (OpenAI, 2025)
      
     data_copy = data.copy()      # Avoid modifying the original DataFrame
     numerical_cols = data_copy.select_dtypes(include=['number']).columns
@@ -101,7 +102,7 @@ def remove_redundant_features(data, threshold=0.9):
     :return: pandas DataFrame
     """
      # TODO: Remove redundant features based on the correlation threshold (HINT: you can use the corr() method)
-    #(Google, 2025)
+    #I used Google  AI Overview (Google, 2025) to understand the concept and code structure
     
     data_copy = data.copy()  # Avoid modifying the original DataFrame
     print("Before removing redundant features:", data_copy.shape)
@@ -110,10 +111,10 @@ def remove_redundant_features(data, threshold=0.9):
     numerical_data = data_copy.select_dtypes(include=['number']) 
     
     # Calculate correlation matrix
-    corr_matrix = numerical_data.corr().abs()
+    corr_matrix = numerical_data.corr().abs() #(Google, 2025)
 
      # Identify highly correlated features
-    upper = corr_matrix.where(np.triu(np.ones(corr_matrix.shape), k=1).astype(bool))
+    upper = corr_matrix.where(np.triu(np.ones(corr_matrix.shape), k=1).astype(bool)) #(Google, 2025)
     to_drop = [column for column in upper.columns if any(upper[column] > threshold)]
 
      # Remove highly correlated features
