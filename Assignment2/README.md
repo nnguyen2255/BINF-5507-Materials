@@ -10,3 +10,5 @@ Include the Following:
 ● Scripts/main.ipynb: A notebook to implement both regression and classification models using the provided dataset.
 ● README.md: Brief documentation describing your project and instructions for running
 your code
+
+we will use the Heart Disease Dataset from the UCI Machine Learning Repository - https://archive.ics.uci.edu/dataset/45/heart+disease
