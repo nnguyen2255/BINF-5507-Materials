@@ -12,3 +12,10 @@ Include the Following:
 your code
 
 we will use the Heart Disease Dataset from the UCI Machine Learning Repository - https://archive.ics.uci.edu/dataset/45/heart+disease
+
+'''
+All the codes used referenced from lab materials and scikit-learn website as they are new concepts for me. 
+The pipelines of this assignment are written by me yet suggested codes were referenced from partial VS built-in auto-code completion and chatGPT.
+ChatGPT, 2025 was used to help me find functions for OneHotEncoder, StandardScaler, and error handling for heatmap plotting (new concepts)
+Plots were created using lab materials 
+'''
