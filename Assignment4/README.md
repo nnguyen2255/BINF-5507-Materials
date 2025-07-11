@@ -39,6 +39,9 @@ Resources used for this assignment include:
     - log-rank test:
     https://lifelines.readthedocs.io/en/latest/lifelines.statistics.html
 
+    Pandas.get_dummies tutorial:
+    https://pandas.pydata.org/docs/reference/api/pandas.get_dummies.html
+
     Datacamp.com:
     - log rank test tutorial:
     https://campus.datacamp.com/courses/survival-analysis-in-python/survival-curve-estimation?ex=10
