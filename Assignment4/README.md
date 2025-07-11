@@ -20,3 +20,26 @@ nnguyen2255/
         Data/
             RADCURE_Clinical_v04_20241219.csv   # Dataset used for analysis
 
+
+
+
+Resources used for this assignment include: 
+    BINF5507 - Lab7.ipynb
+    (for built-in function for plots and KM, Cox, RSF functions)
+    
+    Lifeline :
+    - Cox hazard model intepretation:
+    https://lifelines.readthedocs.io/en/latest/jupyter_notebooks/Proportional%20hazard%20assumption.html
+    - log-rank test:
+    https://lifelines.readthedocs.io/en/latest/lifelines.statistics.html
+
+    Datacamp.com:
+    - log rank test tutorial:
+    https://campus.datacamp.com/courses/survival-analysis-in-python/survival-curve-estimation?ex=10
+   
+
+    ChatGPT, 2025:
+    (for error handling, code recommendations for plots, grammar checks/rephrasing responses)
+
+    Auto-coding features in VS Code
+    (for code refactoring suggestions, and repetitive tasks)
