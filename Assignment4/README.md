@@ -42,6 +42,12 @@ Resources used for this assignment include:
     Datacamp.com:
     - log rank test tutorial:
     https://campus.datacamp.com/courses/survival-analysis-in-python/survival-curve-estimation?ex=10
+
+    Permutation and combination (import intertools):
+    https://www.geeksforgeeks.org/python/permutation-and-combination-in-python/
+    
+    Binary tutorial: 
+    https://www.geeksforgeeks.org/python/how-to-convert-categorical-data-to-binary-data-in-python/
    
 
     ChatGPT, 2025:
